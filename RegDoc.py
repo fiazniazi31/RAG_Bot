@@ -48,7 +48,7 @@ cursor = conn.cursor()
 cursor.execute("select sqlite_version();")
 version = cursor.fetchone()[0]
 conn.close()
-st.write(f"🔢 SQLite version: {version}")
+# st.write(f"🔢 SQLite version: {version}")
 
 
 st.sidebar.header("⚙️ Configuration")
