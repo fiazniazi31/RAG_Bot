@@ -41,13 +41,13 @@ st.set_page_config(
 )
 st.title("📄 RAG Q&A with PDF uploads and Chat History")
 
-# Check and display SQLite version
-import sqlite3
-conn = sqlite3.connect(":memory:")
-cursor = conn.cursor()
-cursor.execute("select sqlite_version();")
-version = cursor.fetchone()[0]
-conn.close()
+# # Check and display SQLite version
+# import sqlite3
+# conn = sqlite3.connect(":memory:")
+# cursor = conn.cursor()
+# cursor.execute("select sqlite_version();")
+# version = cursor.fetchone()[0]
+# conn.close()
 # st.write(f"🔢 SQLite version: {version}")
 
 
