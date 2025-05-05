@@ -20,7 +20,10 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # vector store
-from langchain_chroma import Chroma
+# from langchain_chroma import Chroma
+# vector store (FAISS)
+from langchain.vectorstores import FAISS
+
 
 ## PDF file loader (loads a single PDF into docs)
 from langchain_community.document_loaders import PyPDFLoader
@@ -132,15 +135,17 @@ if uploaded_files:
     # Create a new vector store with each document upload
     # Instead of deleting the old one, create a new one with a unique name
     @st.cache_resource(show_spinner=False)
-    def get_vectorstore(_splits, vs_path, version=1):
-        return Chroma.from_documents(
-            _splits,
-            embedding=embeddings,
-            persist_directory=vs_path
-        )
+    def get_vectorstore(_splits):
+       return FAISS.from_documents(_splits, embedding=embeddings)
+        # return Chroma.from_documents(
+        #     _splits,
+        #     embedding=embeddings,
+        #     persist_directory=vs_path
+        # )
     
     # Use our filtered content chunks instead of all splits
-    vectorstore = get_vectorstore(content_splits, vector_store_path, version=1)
+    # vectorstore = get_vectorstore(content_splits, vector_store_path, version=1)
+    vectorstore = get_vectorstore(content_splits)
     retriever = vectorstore.as_retriever(
         search_kwargs={"k": 5}  # Retrieve top 5 most relevant chunks
     )
